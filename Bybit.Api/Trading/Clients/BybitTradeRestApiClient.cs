@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Rest API Trade Client
 /// </summary>
-public class BybitTradeRestApiClient
+public class BybitTradeRestApiClient : IBybitTradeRestApiClient
 {
     // Trade Endpoints
     private const string _v5OrderCreate = "v5/order/create";

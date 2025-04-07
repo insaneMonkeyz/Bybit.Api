@@ -9,7 +9,7 @@ namespace Bybit.Api;
 /// <summary>
 /// Bybit WebSocket Client
 /// </summary>
-public class BybitWebSocketClient : WebSocketApiClient
+public class BybitWebSocketClient : WebSocketApiClient, IBybitWebSocketClient
 {
     internal bool IsAuthendicated { get; private set; }
 
@@ -45,10 +45,18 @@ public class BybitWebSocketClient : WebSocketApiClient
             Operation = "ping",
             RequestId = Guid.NewGuid().ToString()
         });
-        AddGenericHandler("Heartbeat", (evnt) => { });
+        AddGenericHandler("Heartbeat", _ => { });
     }
 
     #region Overrided Methods
+
+    /// <summary>
+    /// Set the API Credentials
+    /// </summary>
+    /// <param name="credentials"></param>
+    void IBybitWebSocketClient.SetApiCredentials(ApiCredentials credentials)
+        => this.SetApiCredentials(credentials);
+
     /// <inheritdoc/>
     protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
         => new BybitAuthenticationProvider(credentials);

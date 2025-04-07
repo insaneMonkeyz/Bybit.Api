@@ -3,7 +3,7 @@
 /// <summary>
 /// Bybit Rest API Market Client
 /// </summary>
-public class BybitMarketRestApiClient
+public class BybitMarketRestApiClient : IBybitMarketRestApiClient
 {
     // Market Endpoints
     private const string _v5MarketTime = "v5/market/time";
@@ -228,7 +228,7 @@ public class BybitMarketRestApiClient
     /// <param name="cursor">Cursor. Use the nextPageCursor token from the response to retrieve the next page of the result set</param>
     /// <param name="ct">Cancellation Token</param>
     /// <returns></returns>
-    public async Task<BybitRestCallResult<List<BybitMarketSpotInstrument>>> GetSpotInstrumentsAsync(string symbol = null, BybitInstrumentStatus? status = null,int limit = 500, string cursor = null, CancellationToken ct = default)
+    public async Task<BybitRestCallResult<List<BybitMarketSpotInstrument>>> GetSpotInstrumentsAsync(string symbol = null, BybitInstrumentStatus? status = null, int limit = 500, string cursor = null, CancellationToken ct = default)
     {
         var parameters = new ParameterCollection();
         parameters.AddEnum("category", BybitCategory.Spot);
@@ -350,7 +350,7 @@ public class BybitMarketRestApiClient
 
         return await _.SendBybitRequest<BybitMarketOrderbook>(_.BuildUri(_v5MarketOrderbook), HttpMethod.Get, ct, queryParameters: parameters).ConfigureAwait(false);
     }
-    
+
     /// <summary>
     /// Query for the latest price snapshot, best bid/ask price, and trading volume in the last 24 hours.
     /// Covers: Spot / USDT perpetual / USDC contract / Inverse contract / Option

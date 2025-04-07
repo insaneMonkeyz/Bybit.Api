@@ -12,7 +12,7 @@ namespace Bybit.Api;
 /// <summary>
 /// Bybit Rest API Client
 /// </summary>
-public class BybitRestApiClient
+public class BybitRestApiClient : IBybitRestApiClient
 {
     // Internal
     internal ILogger Logger { get; }
@@ -22,12 +22,12 @@ public class BybitRestApiClient
     /// <summary>
     /// Market Client
     /// </summary>
-    public BybitMarketRestApiClient Market { get; } // OK-1009
+    public IBybitMarketRestApiClient Market { get; } // OK-1009
 
     /// <summary>
     /// Trade Client
     /// </summary>
-    public BybitTradeRestApiClient Trade { get; } // OK-1009
+    public IBybitTradeRestApiClient Trade { get; } // OK-1009
 
     /// <summary>
     /// Position Client
